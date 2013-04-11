@@ -20,6 +20,7 @@
         <p>It was built using JQuery Mobile, with a Groovy on Grails server backend hosted on Amazon EC2.</p>
         <p>This application was developed by Simon Prickett, mobile device strategy and implementation specialist - tweet me using the link in the footer, I'd love to hear from you.</p>
         <p>I plan to update this application with new functionality, my next priority is a GPS local station finder.</p>
+        <p>If you want to work with this application yourself, or just study how it works, you can <a href="https://github.com/simonprickett/openbart" rel="external">fork it from github</a>.</p>
       </div>
       <g:render template="/shared/footer"/>
     </div>
