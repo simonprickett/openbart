@@ -1,1 +1,3 @@
-<img src="images/header.png" href="home"/>
+<div width="100%" class="headerimg">
+  <img width="100%" src="images/header.png"/>
+</div>

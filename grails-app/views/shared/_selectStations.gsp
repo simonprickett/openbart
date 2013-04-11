@@ -20,5 +20,5 @@
       </g:else>
     </g:each>
   </select>
-  <input type="submit" value="Get Details"/>
+  <input type="submit" data-icon="check" data-theme="b" value="Get Details"/>
 </form>

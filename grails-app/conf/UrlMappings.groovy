@@ -13,5 +13,10 @@ class UrlMappings {
             controller = 'bart'
             action = 'station'
         }
+        
+        "/about" {
+            controller = 'bart'
+            action = 'about'
+        }
     }
 }

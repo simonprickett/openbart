@@ -36,4 +36,8 @@ class BartController {
           stationTips: grailsApplication.config?.stationFourSquareTips.get(params.station.toString())
         ]
     }
+    
+    def about = {
+        // no code needed for now
+    }
 }
