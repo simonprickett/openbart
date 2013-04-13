@@ -19,6 +19,10 @@
     </g:each>
   </ol>
   <ul data-role="listview" data-inset="true">
+    <li data-role="list-divider">Emissions Saved</li>
+    <li>This trip saves ${emissions} pounds of carbon emissions.</li>   
+  </ul>
+  <ul data-role="listview" data-inset="true">
     <li><a href="departures?station=${params.fromStation}&tab=info" rel="external">${fromStationName} Info</a</li>
     <li><a href="departures?station=${params.toStation}&tab=info" rel="external">${toStationName} Info</a></li>
   </ul>

@@ -21,6 +21,11 @@
         <p>This application was developed by Simon Prickett, mobile device strategy and implementation specialist - tweet me using the link in the footer, I'd love to hear from you.</p>
         <p>I plan to update this application with new functionality, my next priority is a GPS local station finder.</p>
         <p>If you want to work with this application yourself, or just study how it works, you can <a href="https://github.com/simonprickett/openbart" rel="external">fork it from github</a>.</p>
+        <ul data-role="listview" data-inset="true">
+          <li data-role="list-divider">Updates 4/12/2013</li>
+          <li>Added carbon emissions saved data to ticket pricing page</li>
+          <li>Added updates information to about page</li>
+        </ul>
       </div>
       <g:render template="/shared/footer"/>
     </div>

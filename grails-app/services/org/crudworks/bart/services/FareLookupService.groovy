@@ -12,4 +12,10 @@ class FareLookupService {
             new XmlSlurper().parseText(feedXmlStr)
         }
     }
+    
+    def getEmissions(String emissionsFromBart) {
+        String emissions = emissionsFromBart.substring(emissionsFromBart.indexOf("<strong>") + 8).trim()
+        emissions = emissions.substring(0, emissions.indexOf(" pounds"))
+        return emissions
+    }
 }
