@@ -8,7 +8,7 @@
       <g:else>
         <g:set var="mins" value="${train.minutes} mins"/>
       </g:else>
-      <li><img src="images/${train.color}.png" alt="${train.color}" class="ui-li-icon"/> ${mins} platform ${train.platform} (${train.length} cars)</li>
+      <li><img src="images/${train.color}.png" alt="${train.color}" class="ui-li-icon"/> ${mins} ${train.length} car platform ${train.platform} <g:if test="${train.bikeflag == '0'}"></g:if></li>
     </g:each>
   </ol>
 </g:each>

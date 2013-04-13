@@ -23,6 +23,7 @@
         <p>If you want to work with this application yourself, or just study how it works, you can <a href="https://github.com/simonprickett/openbart" rel="external">fork it from github</a>.</p>
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Updates 4/12/2013</li>
+          <li>Added no bikes allowed indicator on train departure times</li>
           <li>Added carbon emissions saved data to ticket pricing page</li>
           <li>Added updates information to about page</li>
         </ul>
