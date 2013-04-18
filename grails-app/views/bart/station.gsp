@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
-    <title>BART</title>
+    <g:render template="/shared/metadata"/>
+    <g:render template="/shared/cssjavascript"/>
+    <title>BART: ${stationDetails.stations.station.name}</title>
   </head>
   <body>
     <div data-role="page" <g:if test="params?.tab == 'info'">id="station${params.station}"</g:if>>

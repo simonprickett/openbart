@@ -10,7 +10,7 @@ class BartController {
         def fromStationName
         def toStationName
         def emissions
-
+       
         if (params?.fromStation != null) {
             fareDetails = new FareLookupService().lookupFare(params.fromStation, params.toStation)
             fromStationName = new StationNameLookupService().lookupStationName(params.fromStation)
@@ -30,7 +30,7 @@ class BartController {
         ]
     }
 
-    def station = {
+    def station = {    
         [ stations: grailsApplication.config?.bartEtds.station,
           updatedTime: grailsApplication.config?.bartEtds.time,
           trainsInService: grailsApplication.config?.bartTrainsInService,
