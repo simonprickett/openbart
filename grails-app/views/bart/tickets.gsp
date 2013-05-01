@@ -4,8 +4,7 @@
     <g:render template="/shared/metadata"/>
     <g:render template="/shared/cssjavascript"/>
     <link rel="stylesheet" href="css/stylesheet.css" />
-    <script src="js/bart.js"></script>
-    <title>BART: Home</title>
+    <title>BART: Tickets</title>
   </head>
   <body>
     <div data-role="page">
@@ -16,19 +15,19 @@
         <a href="#left-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
       <div data-role="content">
-        <g:render template="/shared/systemStatus"/>
-          <h2>BART Departures</h2>
-          <div id="closeststation">
-            <ul data-role="listview" data-inset="true" id="closeststationlist">
-            </ul>
-          </div>
-          <g:render template="/shared/selectStation" />
-          <p>&nbsp;</p>
-        </div>
-        <g:render template="/shared/footer"/>
-        <g:render template="/shared/panelmenu"/>
+          <g:if test="${params?.fromStation != null}">
+            <g:render template="/shared/ticketInfo" />
+          </g:if>
+          <g:else>
+            <h2>BART Tickets</h2>
+            <g:render template="/shared/selectStations" />
+            <br/>
+          </g:else>
+          <a href="tickets" data-role="button" data-icon="refresh" data-theme="b">Start Over</a>
+      </div>
+      <g:render template="/shared/footer"/>
+      <g:render template="/shared/panelmenu"/>
     </div>
-        <g:render template="/shared/gps" model="[stations:stations]"/>
     <g:render template="/shared/googleanalytics"/>
   </body>
 </html>

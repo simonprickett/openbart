@@ -47,6 +47,6 @@
 </div>
 <ul data-role="listview" data-inset="true">
   <li data-role="list-divider">Ticket Info</li>
-  <li><a href="home?tab=tickets&to=${params.station}">Tickets to this station</a></li>
-  <li><a href="home?tab=tickets&from=${params.station}">Tickets from this station</a></li>
+  <li><a href="../tickets?to=${params.station}">Tickets to this station</a></li>
+  <li><a href="../tickets?from=${params.station}">Tickets from this station</a></li>
 </ul>

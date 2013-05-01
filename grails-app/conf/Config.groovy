@@ -55,7 +55,7 @@ grails.exceptionresolver.params.exclude = ['password']
 environments {
     production {
         bartKey = "MW9S-E7SL-26DU-VV8V"
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://bart.crudworks.org"
     }
     development {
         bartKey = "MW9S-E7SL-26DU-VV8V"

@@ -23,7 +23,7 @@
     <li>This trip saves ${emissions} pounds of carbon emissions.</li>   
   </ul>
   <ul data-role="listview" data-inset="true">
-    <li><a href="departures?station=${params.fromStation}&tab=info" rel="external">${fromStationName} Info</a</li>
-    <li><a href="departures?station=${params.toStation}&tab=info" rel="external">${toStationName} Info</a></li>
+    <li><a href="station/${params.fromStation}" rel="external">${fromStationName} Info</a</li>
+    <li><a href="station/${params.toStation}" rel="external">${toStationName} Info</a></li>
   </ul>
 </g:else>

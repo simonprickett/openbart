@@ -3,13 +3,16 @@
   <head>
     <g:render template="/shared/metadata"/>
     <g:render template="/shared/cssjavascript"/>
+    <link rel="stylesheet" href="css/stylesheet.css" />
     <title>BART: About</title>
   </head>
   <body>
     <div data-role="page">
       <div data-role="header">
-        <g:render template="/shared/header"/>
-        <g:render template="/shared/globalnav"/>
+        <div width="100%" class="headerimg">
+          <img width="100%" src="images/header.png"/>
+        </div>
+        <a href="#left-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
       <div data-role="content">
         <h2>About</h2>
@@ -19,6 +22,9 @@
         <p>I plan to update this application with new functionality, and display additional information as I have time.</p>
         <p>If you want to work with this application yourself, or just study how it works, you can <a href="https://github.com/simonprickett/openbart" rel="external">fork it from github</a>.</p>
         <ul data-role="listview" data-inset="true">
+          <li data-role="list-divider">Updates 5/1/2013</li>
+          <li>Cleaned up URL structure</li>
+          <li>Replaced tab menu with open out panel menu</li>
           <li data-role="list-divider">Updates 4/18/2013</li>
           <li>Added GPS local station finder on home page</li>
           <li>Added meta data and page titles to pages</li>
@@ -29,6 +35,7 @@
         </ul>
       </div>
       <g:render template="/shared/footer"/>
+      <g:render template="/shared/panelmenu"/>
     </div>
     <g:render template="/shared/googleanalytics"/>
   </body>

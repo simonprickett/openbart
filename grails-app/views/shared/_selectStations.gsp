@@ -1,5 +1,4 @@
-<form action="home" method="GET" name="tripSelect">
-  <input type="hidden" name="tab" value="tickets"/>
+<form action="tickets" method="GET" name="tripSelect">
   <select name="fromStation">
     <g:each in="${stations.list().sort{ it.name.toString().toLowerCase() } }" var="station">
       <g:if test="${station.abbr == params.from}">
