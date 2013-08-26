@@ -1,0 +1,5 @@
+<%@ page contentType="application/json" %>
+<%
+    def jsonEncodingService = grailsApplication.classLoader.loadClass('org.crudworks.bart.services.JSONEncodingService').newInstance()
+%>
+{<g:each in="${stations.keySet()}" status="status" var="station">"${stationDetails[station].stations.station.abbr}": {"abbr": "${stationDetails[station].stations.station.abbr}","name": "${stationDetails[station].stations.station.name}","foursquareid": "${fourSquareVenues.get(stationDetails[station].stations.station.abbr.toString())}", "latitude": "${stationDetails[station].stations.station.gtfs_latitude}","longitude": "${stationDetails[station].stations.station.gtfs_longitude}","address": "${stationDetails[station].stations.station.address}","city": "${stationDetails[station].stations.station.city}","state": "${stationDetails[station].stations.station.state}","zipcode": "${stationDetails[station].stations.station.zipcode}","description": "${jsonEncodingService.encodeString(stationDetails[station].stations.station.intro.toString())}"}<g:if test="${status != stations.keySet().size() -1}">,</g:if></g:each>}

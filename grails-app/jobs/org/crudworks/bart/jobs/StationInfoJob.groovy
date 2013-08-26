@@ -24,6 +24,7 @@ class StationInfoJob {
         }
         
         ConfigurationHolder.config.bartStationLookup = stationLookupMap
+        //println "Station Info Job completed"
     }
 }
 

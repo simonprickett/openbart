@@ -3,6 +3,7 @@ package org.crudworks.bart.services
 class TweetFormattingService {
     def formatTweet(String tweetToFormat) {
        // needs to account for https links
+       // TODO: I think there is a problem here and it is matching all tweets?
        int linkStartPos = tweetToFormat.indexOf("http://")
        if (linkStartPos != -1) {
            String linkText = ""
@@ -15,8 +16,8 @@ class TweetFormattingService {
                linkText = tweetToFormat.substring(linkStartPos)
            }
            
-            String formattedTweet = "<a href=\"" + linkText + "\" rel=\"external\">" + tweetToFormat + "</a>"
-            return formattedTweet
+           String formattedTweet = "<a href=\"" + linkText + "\" rel=\"external\">" + tweetToFormat + "</a>"
+           return formattedTweet
        } else {
            return tweetToFormat
        }

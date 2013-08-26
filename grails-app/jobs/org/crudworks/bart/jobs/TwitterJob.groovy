@@ -8,10 +8,12 @@ class TwitterJob {
     }
 
     def execute() {
+        // TODO: this needs a rewrite now Twitter is oAuth only...
+        /*
         def feedXmlStr = "http://api.twitter.com/1/statuses/user_timeline.xml?screen_name=sfbart".toURL().text
         def feedXml = new XmlSlurper().parseText(feedXmlStr)
         ConfigurationHolder.config.bartTweets = feedXml
-        //println "Twitter Feed updated."
+        */
     }
 }
 

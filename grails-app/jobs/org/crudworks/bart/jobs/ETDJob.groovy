@@ -11,7 +11,7 @@ class ETDJob {
         def feedXmlStr = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig=ALL&key=${ConfigurationHolder.config.bartKey}".toURL().text
         def feedXml = new XmlSlurper().parseText(feedXmlStr)
         ConfigurationHolder.config.bartEtds = feedXml
-        //println "Departure Feed updated."      
+        //println "ETD Job Completed"
     }
 }
 

@@ -11,7 +11,7 @@ class TrainsInServiceJob {
         def feedXmlStr = "http://api.bart.gov/api/bsa.aspx?cmd=count&key=${ConfigurationHolder.config.bartKey}".toURL().text
         def feedXml = new XmlSlurper().parseText(feedXmlStr)
         ConfigurationHolder.config.bartTrainsInService = feedXml.traincount
-        //println "Trains in service feed updated."
+        //println "Trains in Service Job Completed"
     }
 }
 

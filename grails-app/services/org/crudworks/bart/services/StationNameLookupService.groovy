@@ -6,6 +6,7 @@ class StationNameLookupService {
 
     static transactional = false
 
+    /* TODO: Check if this is obsolete... */
     def lookupStationName(String abbr) {
         ConfigurationHolder.config.bartStationLookup.get(abbr)
     }

@@ -21,6 +21,9 @@
       </div>
       <div data-role="content">
         <h2>BART News</h2>
+        <p>Due to changes in the Twitter API this section is not currently available.</p>
+        <p>It will return in a future release with added functionality.</p>
+        <!--
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Latest Tweets</li>
           <g:each in="${news.status}" var="tweet">
@@ -28,6 +31,7 @@
             <li><g:if test="${tweetLink} != ''"><a href="${tweetLink}"></g:if><p class="ui-li-aside">${dateFormattingService.formatDate(tweet.created_at.toString())}</p><div style="white-space: normal">${tweet.text}</div><g:if test="${tweetlink} != ''"></a></g:if>
           </g:each>
         </ul>
+        -->
         <a href="home" data-role="button" data-icon="home" data-theme="b">Home</a>
       </div> <!-- content -->
       <g:render template="/shared/footer"/>

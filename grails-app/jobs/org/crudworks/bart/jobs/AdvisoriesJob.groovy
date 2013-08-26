@@ -11,7 +11,7 @@ class AdvisoriesJob {
         def feedXmlStr = "http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=${ConfigurationHolder.config.bartKey}".toURL().text
         def feedXml = new XmlSlurper().parseText(feedXmlStr)
         ConfigurationHolder.config.bartAdvisories = feedXml
-        //println "Advisories Feed updated."
+        //println "Advisories job completed"
     }
 }
 
