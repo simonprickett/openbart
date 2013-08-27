@@ -14,7 +14,8 @@
     <p>When the BART system isn't running you may see inaccurate or missing data.  This will be addressed in future.</p>
     <h2>Change Log</h2>
     <ul>
-      <li>18 August 2013: Initial release</li>
+      <li>26 August 2013: Added JSONP support, example status with a system advisory.</li>
+      <li>18 August 2013: Initial release.</li>
     </ul>
     <h2>Examples</h2>
     <p>The following illustrate the usage of the wrapper.</p>
@@ -37,7 +38,17 @@
       <li>traincount indicates the number of trains running on the system.</li>
       <li>advisories will be empty if there are no system status advisories and contains one text string for each advisory when there are one or more active system advisories.</li>
     </ul>
-    <p>TODO: Add an example response for when there are system advisories.</p>
+    <h4>Response with System Advisory</h4>
+    <p>The following shows what the response looks like when BART has a system advisory in place.</p>
+    <pre>
+      {
+        "updatedtime": "08:02:21 AM",
+        "traincount": "59",
+        "advisories": {
+          "advisory": "There is a delay developing at Fremont on the Fremont Line in the Fremont, Richmond and San Francisco directions due to an equipment problem on a train. "
+        }
+      } 
+    </pre>
     <h3>Station Information (All Stations)</h3>
     <p>Gets name, address, location etc data about each station on the BART network.</p>
     <h4>Request</h4>
@@ -204,13 +215,24 @@
       <li>Emissions saved are quoted in Pounds.</li>
       <li>Setting fromStation and toStation to the same STATIONCODE will currently cause an error.  This will be fixed in a later release.</li>
     </ul>
+    <h2>JSONP Support</h2>
+    <p>To use any of the API endpoints with JSONP, simply add a request parameter named callback to the URL and set the value to the name of the Javascript function you want returned.</p>
+    <p>When called with the callback parameter, content will be returned as content type application/javascript rather than application/json.</p>
+    <h4>Example Request</h4>
+    <pre>
+      http://bart.crudworks.org/api/status?callback=myCallbackFunction
+    </pre>
+    <h4>Example Response</h4>
+    <pre>
+    myCallbackFunction({"updatedtime": "07:31:35 AM","traincount": "60","advisories": {}});
+    </pre>
     <h2>Roadmap</h2>
     <p>I would like to add more functionality to this wrapper, for example:</p>
     <ul>
       <li>Tidy up and pretty print this page.</li>
       <li>Make the list of stations and individual station calls still return valid data when BART is closed for the night.</li>
+      <li>Add call to find nearest station to a provided latitude/longitude GPS position.</li>
       <li>Add calls for escalator status.</li>
-      <li>JSONP support.</li>
       <li>Implement the news call to display BART's latest tweets.</li>
       <li>Offer the ability to plan a journey at a specific date and time.</li>
       <li>Fix the error page that is generated if the from and to stations are the same station code when asking for ticket information.</li>

@@ -9,15 +9,19 @@ class ApiController {
     }
     
     def stations = {
-        [stations: grailsApplication.config?.bartStationLookup,
-         stationDetails: grailsApplication.config?.bartStationDetails,
-         fourSquareVenues: grailsApplication.config?.stationFourSquareMap]
+        [ stations: grailsApplication.config?.bartStationLookup,
+          stationDetails: grailsApplication.config?.bartStationDetails,
+          fourSquareVenues: grailsApplication.config?.stationFourSquareMap,
+          callback: params?.callback
+        ]
     }
     
     def status = {
         [updatedTime: grailsApplication.config?.bartEtds.time,
          trainsInService: grailsApplication.config?.bartTrainsInService,
-         advisories: grailsApplication.config?.bartAdvisories]
+         advisories: grailsApplication.config?.bartAdvisories,
+         callback: params?.callback
+        ]
     }
     
     def tickets = {
@@ -37,18 +41,22 @@ class ApiController {
           fareDetails: fareDetails,
           fromStationName: fromStationName,
           toStationName: toStationName,
-          emissions: emissions
+          emissions: emissions,
+          callback: params?.callback
         ]    
     }
     
     def station = {
         [ stationDetails: grailsApplication.config?.bartStationDetails."${params.station}",
-          fourSquareVenues: grailsApplication.config?.stationFourSquareMap 
+          fourSquareVenues: grailsApplication.config?.stationFourSquareMap,
+          callback: params?.callback
         ]
     }
     
     def departures = {
-        [ stations: grailsApplication.config?.bartEtds.station ]
+        [ stations: grailsApplication.config?.bartEtds.station,
+          callback: params?.callback
+        ]
     }
     
     def news = {

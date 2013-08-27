@@ -1,4 +1,5 @@
-<%@ page contentType="application/json" %>
+<g:if test="${callback != null}"><%@ page contentType="application/javascript" %></g:if><g:else><%@ page contentType="application/json" %></g:else>
+<g:if test="${callback != null}">${callback}(</g:if>
 <g:each in="${stations}" var="station">
   <g:if test="${station.abbr == params.station}">    
     {
@@ -27,3 +28,4 @@
     }
   </g:if>
 </g:each>
+<g:if test="${callback != null}">);</g:if>
