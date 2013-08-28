@@ -14,6 +14,7 @@
     <p>When the BART system isn't running you may see inaccurate or missing data.  This will be addressed in future.</p>
     <h2>Change Log</h2>
     <ul>
+      <li>28 August 2013: Added pretty printing of code to this page.</li>
       <li>26 August 2013: Added JSONP support, example status with a system advisory.</li>
       <li>18 August 2013: Initial release.</li>
     </ul>
@@ -22,11 +23,13 @@
     <h3>System Status</h3>
     <p>Gets basic data about the status of the BART system.</p>
     <h4>Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/status
     </pre>
     <h4>Response</h4>
-    <pre>
+    <pre class="prettyprint">
+
       {
         "updatedtime": "07:21:48 PM",
         "traincount": "48",
@@ -40,23 +43,27 @@
     </ul>
     <h4>Response with System Advisory</h4>
     <p>The following shows what the response looks like when BART has a system advisory in place.</p>
-    <pre>
+    <pre class="prettyprint">
+
       {
         "updatedtime": "08:02:21 AM",
         "traincount": "59",
         "advisories": {
-          "advisory": "There is a delay developing at Fremont on the Fremont Line in the Fremont, Richmond and San Francisco directions due to an equipment problem on a train. "
+          "advisory": "There is a delay developing at Fremont on the Fremont Line in the Fremont, 
+                      Richmond and San Francisco directions due to an equipment problem on a train. "
         }
       } 
     </pre>
     <h3>Station Information (All Stations)</h3>
     <p>Gets name, address, location etc data about each station on the BART network.</p>
     <h4>Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/stations
     </pre>
     <h4>Response</h4>
-    <pre>
+    <pre class="prettyprint">
+
       {
         "12TH": {
           "abbr": "12TH",
@@ -68,7 +75,8 @@
           "city": "Oakland",
           "state": "CA",
           "zipcode": "94612",
-          "description": "12th St. Oakland City Center Station is in the heart of Downtown Oakland, near historic Old Oakland and Oakland's Chinatown."
+          "description": "12th St. Oakland City Center Station is in the heart of Downtown 
+                          Oakland, near historic Old Oakland and Oakland's Chinatown."
         },
         "16TH": {
           "abbr": "16TH",
@@ -80,7 +88,10 @@
           "city": "San Francisco",
           "state": "CA",
           "zipcode": "94110",
-          "description": "\"The Mission\" refers to the San Francisco de Asis Mission, also known as Mission Dolores, which was founded 1776. Today the neighborhood is host to an eclectic mix of restaurants, markets, performance spaces, shops, and nightspots."
+          "description": "\"The Mission\" refers to the San Francisco de Asis Mission, 
+                          also known as Mission Dolores, which was founded 1776. Today the 
+                          neighborhood is host to an eclectic mix of restaurants, markets, 
+                          performance spaces, shops, and nightspots."
         },
       ...
     </pre>
@@ -91,14 +102,15 @@
     </ul>
     <h3>Individual Station Information</h3>
     <h4>Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/station/&lt;STATIONCODE&gt;
-    </pre>
-    <pre>
+
       http://bart.crudworks.org/api/station/POWL
     </pre>
     <h4>Response</h4>
-    <pre>
+    <pre class="prettyprint">
+
       {
         "abbr": "POWL",
         "name": "Powell St.",
@@ -109,7 +121,10 @@
         "city": "San Francisco",
         "state": "CA",
         "zipcode": "94102",
-        "description": "Located at Powell and Market Streets, this station is centrally located near San Francisco's most popular attractions including the cable cars, Union Square, Yerba Buena Gardens, the Moscone Convention Center and the City's Theatre District."
+        "description": "Located at Powell and Market Streets, this station is centrally 
+                        located near San Francisco's most popular attractions including 
+                        the cable cars, Union Square, Yerba Buena Gardens, the Moscone 
+                        Convention Center and the City's Theatre District."
       }
     </pre>
     <ul>
@@ -117,14 +132,15 @@
     </ul>
     <h3>Train Departures from an Individual Station</h3>
     <h4>Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/departures/&lt;STATIONCODE&gt;
-    </pre>
-    <pre>
+
       http://bart.crudworks.org/api/departures/POWL
     </pre>
     <h4>Response</h4>
-    <pre>
+    <pre class="prettyprint">
+
     {
       "DALY": {
         "destination": "Daly City",
@@ -189,14 +205,15 @@
     <h3>Ticket Prices, Route Between Stations</h3>
     <p>Get the price of a one way ticket between two stations, details of how to navigate BART between those stations and an estimate of Carbon Dioxide savings for the journey.</p>
     <h4>Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/tickets/?fromStation=&lt;STATIONCODE&gt;&amp;toStation=&lt;STATIONCODE&gt;
-    </pre>
-    <pre>
+
       http://bart.crudworks.org/api/tickets/?fromStation=&lt;PITT&gt;&amp;toStation=&lt;DUBL&gt;
     </pre>
     <h4>Response</h4>
-    <pre>
+    <pre class="prettyprint">
+
     {
       "fromStation": "Pittsburg/Bay Point",
       "toStation": "Dublin/Pleasanton",
@@ -219,17 +236,19 @@
     <p>To use any of the API endpoints with JSONP, simply add a request parameter named callback to the URL and set the value to the name of the Javascript function you want returned.</p>
     <p>When called with the callback parameter, content will be returned as content type application/javascript rather than application/json.</p>
     <h4>Example Request</h4>
-    <pre>
+    <pre class="prettyprint">
+
       http://bart.crudworks.org/api/status?callback=myCallbackFunction
     </pre>
     <h4>Example Response</h4>
-    <pre>
-    myCallbackFunction({"updatedtime": "07:31:35 AM","traincount": "60","advisories": {}});
+    <pre class="prettyprint">
+
+      myCallbackFunction({"updatedtime": "07:31:35 AM","traincount": "60","advisories": {}});
     </pre>
     <h2>Roadmap</h2>
     <p>I would like to add more functionality to this wrapper, for example:</p>
     <ul>
-      <li>Tidy up and pretty print this page.</li>
+      <li>Tidy up and pretty print this page some more.</li>
       <li>Make the list of stations and individual station calls still return valid data when BART is closed for the night.</li>
       <li>Add call to find nearest station to a provided latitude/longitude GPS position.</li>
       <li>Add calls for escalator status.</li>
@@ -244,5 +263,6 @@
     <p>If you want to get in touch, find this useful, want to use it, or have any suggestions: please <a href="https://twitter.com/intent/tweet?text=@simon_prickett%20BART%20Feedback:">Tweet me @simon_prickett</a></p>
     <h2>Get the Code</h2>
     <p>You can get the code from <a href="https://github.com/simonprickett/openbart">Github</a>.  It is written in Groovy on Grails and also comes with a JQuery Mobile web front end.</p>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
   </body>
 </html>
