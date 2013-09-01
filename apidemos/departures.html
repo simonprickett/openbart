@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+	<h1>BART Train Departures</h1>
+	<div id="systemstatus">
+	</div>
+	<hr/>
+	<div id="stationselect">
+	</div>
+	<hr/>
+	<div id="departures">
+		<p>Select a station to see departures.</p>
+	</div>
+	<script>
+		function stationSelected() {
+			var stationSelect = document.getElementById('selectedstation');
+			var stationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
+			var stationName = stationSelect.options[stationSelect.selectedIndex].text;
+			if (stationAbbr == 'NONE') {
+				$('#departures').html('<p>Select a station to see departures.</p>');
+			} else {
+				getDepartures(stationAbbr, stationName);
+				updateSystemStatus();
+			}
+		};
+
+		function updateSystemStatus() {
+			$.getJSON('http://bart.crudworks.org/api/status?callback=?', function(data) {
+				$('#systemstatus').html('<p>' + data.updatedtime + ': ' + data.traincount + ' trains operating.</p>');
+			});
+		};
+
+		function getDepartures(stationAbbr, stationName) {
+			$.getJSON('http://bart.crudworks.org/api/departures/' + stationAbbr + '?callback=?', function(data) { 
+				var departuresHTML = '<h2>Departures from ' + stationName + '</h2>';
+				for (o in data) { 
+					var destination = data[o];
+					departuresHTML = departuresHTML + '<h4>' + destination.destination + '</h4><p>Platform ' + destination.departures['0'].platform + '</p><ul>';
+					for (d in destination.departures) { 
+						var departure = destination.departures[d];
+						departuresHTML = departuresHTML + '<li>' + departure.color + ' ' + departure.estimate + ' (' + departure.cars + ' cars)</li>';
+					} 
+
+					departuresHTML = departuresHTML + '</ul>';
+				} 
+				$('#departures').html(departuresHTML);
+			});
+		};
+
+		$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
+			var stationSelectHTML = '<form action="test" id="stationselectform"><select name="station" onChange="stationSelected()" id="selectedstation"><option value="NONE">Select a station...</option>';
+			for (s in data) {
+				var station = data[s];
+				stationSelectHTML = stationSelectHTML + '<option value="' + station.abbr + '">' + station.name + '</option>';
+			}
+			stationSelectHTML = stationSelectHTML + '</select></form>';
+			$('#stationselect').html(stationSelectHTML);
+		});
+		updateSystemStatus();
+	</script>
+</body>
+</html>
