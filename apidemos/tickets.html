@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BART Ticket Information</title>
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+	<h1>BART Station Information</h1>
+	<div id="systemstatus">
+	</div>
+	<hr/>
+	<div id="stationselect">
+	</div>
+	<hr/>
+	<div id="stationtitle">
+		<p>Select to and from station to view ticket prices and route details.</p>
+	</div>
+	<div id="ticketinfo">
+	</div>
+	<script>
+		function stationSelected() {
+			var stationSelect = document.getElementById('selectedfromstation');
+			var fromStationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
+			var fromStationName = stationSelect.options[stationSelect.selectedIndex].text;
+			if (fromStationAbbr == 'NONE') {
+				$('#stationtitle').html('<p>Select a starting station...</p>');
+			}
+
+			stationSelect = document.getElementById('selectedtostation');
+			var toStationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
+			var toStationName = stationSelect.options[stationSelect.selectedIndex].text;
+			if (toStationAbbr == 'NONE') {
+				$('#stationtitle').html('<p>Select a destination station...</p>');
+			}	
+
+			if (fromStationAbbr != 'NONE' && toStationAbbr != 'NONE') {
+				if (fromStationAbbr == toStationAbbr) {
+					$('#stationtitle').html('<p>Start and destination stations are the same, please re-select!</p>');
+					$('#ticketinfo').hide();
+				} else {
+					$('#stationtitle').html('<h2>Tickets from ' + fromStationName + ' to ' + toStationName);
+					getTicketInfo(fromStationAbbr, toStationAbbr);
+				}
+			}		
+		}
+
+		function updateSystemStatus() {
+			$.getJSON('http://bart.crudworks.org/api/status?callback=?', function(data) {
+				$('#systemstatus').html('<p>' + data.updatedtime + ': ' + data.traincount + ' trains operating.</p>');
+			});
+		};
+
+		function getTicketInfo(fromStationAbbr, toStationAbbr) {
+			$.getJSON('http://bart.crudworks.org/api/tickets/?fromStation=' + fromStationAbbr + '&toStation=' + toStationAbbr + '&callback=?', function(data) { 
+				var ticketInfoHTML = '<p>Ticket Price: $' + data.fare + ' (one way)</p><p>Trip Details:</p><ul>';
+				for (i = 0; i < data.legs.length; i++) {
+					ticketInfoHTML = ticketInfoHTML + '<li>' + data.legs[i] + '</li>';
+				} 
+				ticketInfoHTML = ticketInfoHTML + '</ul><p>This trip saves ' +  data.emissions + ' pounds of carbon emissions.</p>';
+				$('#ticketinfo').html(ticketInfoHTML);
+				$('#ticketinfo').show();
+			});
+		};
+
+		$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
+			var stationSelectHTML = '<form action="test" id="stationselectform"><select name="fromstation" onChange="stationSelected()" id="selectedfromstation"><option value="NONE">Select a starting station...</option>';
+			var stationList = '';
+			for (s in data) {
+				var station = data[s];
+				stationList = stationList + '<option value="' + station.abbr + '">' + station.name + '</option>';
+			}
+			stationSelectHTML = stationSelectHTML + stationList + '</select><select name="tostation" onChange="stationSelected()" id="selectedtostation"><option value="NONE">Select a destination station...</option>' + stationList + '</select></form>';
+			$('#stationselect').html(stationSelectHTML);
+		});
+		updateSystemStatus();
+	</script>
+</body>
+</html>
