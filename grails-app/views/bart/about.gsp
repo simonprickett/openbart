@@ -22,7 +22,9 @@
         <p>I plan to update this application with new functionality, and display additional information as I have time.</p>
         <p>If you want to work with this application yourself, or just study how it works, you can <a href="https://github.com/simonprickett/openbart" rel="external">fork it from github</a>.</p>
         <ul data-role="listview" data-inset="true">
-          <li data-role="list-divider">Updated 8/18/2013</li>
+          <li data-role="list-divider">Updates 10/2/2013</li>
+          <li>Re-introduced news section as embedded Twitter timeline</li>
+          <li data-role="list-divider">Updates 8/18/2013</li>
           <li>Migrated to Grails 2.2.4</li>
           <li>Added JSON API</li>
           <li data-role="list-divider">Updates 5/1/2013</li>
