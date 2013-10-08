@@ -10,7 +10,7 @@
   <p>${fromStationName} to ${toStationName}:</p>
   <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">Ticket Price</li>
-    <li>One way: &#36;${fareDetails.schedule.request.trip.@fare}.</li>  
+    <li>One way: &#36;${fareDetails.schedule.request.trip.@fare}, Clipper: &#36;${fareDetails.schedule.request.trip.@clipper}.</li>
   </ul>
   <ol data-role="listview" data-inset="true">
     <li data-role="list-divider">Trip Details</li>

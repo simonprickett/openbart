@@ -14,6 +14,7 @@
     <p>When the BART system isn't running you may see inaccurate or missing data.  This will be addressed in future.</p>
     <h2>Change Log</h2>
     <ul>
+      <li>7 October 2013: Added Clipper card pricing to fare calculator.</li>
       <li>28 August 2013: Added pretty printing of code to this page.</li>
       <li>26 August 2013: Added JSONP support, example status with a system advisory.</li>
       <li>18 August 2013: Initial release.</li>
@@ -209,7 +210,7 @@
 
       http://bart.crudworks.org/api/tickets/?fromStation=&lt;STATIONCODE&gt;&amp;toStation=&lt;STATIONCODE&gt;
 
-      http://bart.crudworks.org/api/tickets/?fromStation=&lt;PITT&gt;&amp;toStation=&lt;DUBL&gt;
+      http://bart.crudworks.org/api/tickets/?fromStation=PITT&amp;toStation=DUBL
     </pre>
     <h4>Response</h4>
     <pre class="prettyprint">
@@ -218,6 +219,7 @@
       "fromStation": "Pittsburg/Bay Point",
       "toStation": "Dublin/Pleasanton",
       "fare": "6.45",
+      "clipper": "2.40",
       "emissions": "23.3",
       "legs": [
         "At Pittsburg/Bay Point board train to San Francisco Int'l Airport change at MacArthur.",
@@ -229,6 +231,7 @@
     <ul>
       <li>A trip between two BART stations may require 1, 2 or 3 separate legs.</li>
       <li>Fare prices are quoted in United States Dollars.</li>
+      <li>The Clipper price is valid for those using the Clipper Card.</li>
       <li>Emissions saved are quoted in Pounds.</li>
       <li>Setting fromStation and toStation to the same STATIONCODE will currently cause an error.  This will be fixed in a later release.</li>
     </ul>
@@ -252,7 +255,6 @@
       <li>Make the list of stations and individual station calls still return valid data when BART is closed for the night.</li>
       <li>Add call to find nearest station to a provided latitude/longitude GPS position.</li>
       <li>Add calls for escalator status.</li>
-      <li>Implement the news call to display BART's latest tweets.</li>
       <li>Offer the ability to plan a journey at a specific date and time.</li>
       <li>Fix the error page that is generated if the from and to stations are the same station code when asking for ticket information.</li>
       <li>Tidy up the formatting of the raw JSON.</li>

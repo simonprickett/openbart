@@ -58,9 +58,5 @@ class ApiController {
           callback: params?.callback
         ]
     }
-    
-    def news = {
-        render "<p>Not implemented yet: this would be the news</p>"
-    }
 }
 

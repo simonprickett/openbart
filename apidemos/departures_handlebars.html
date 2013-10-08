@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<title>BART Train Departures</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.js"></script>
+	</head>
+	<body>
+		<!-- HTML -->
+		<h1>BART Train Departures</h1>
+		<div id="systemstatus">
+		</div>
+		<hr>
+		<div id="stationselect">
+		</div>
+		<hr>
+		<div id="departures">
+			<p>Select a station to see departures.</p>
+		</div>
+
+		<!-- Handlebars Templates -->
+		<script id="status-template" type="text/x-handlebars-template">
+			{{updatedtime}}: {{traincount}} trains operating.
+		</script>
+
+		<script id="stationlist-template" type="text/x-handlebars-template">
+			<form action="test" id="stationselectform">
+				<select name="station" onChange="stationSelected()" id="selectedstation">
+					<option value="NONE">Select a station...</option>
+					{{#each this}}
+						<option value="{{abbr}}">{{name}}</option>
+					{{/each}}
+				</select>
+			</form>
+		</script>
+
+		<script id="departures-template" type="text/x-handlebars-template">
+			<h2>Departures from STATIONNAME</h2>
+			{{#each this}}
+				<h4>{{destination}}</h4>
+				<p>Platform {{departures.[0].platform}}</p>
+				<ul>
+					{{#each departures}}
+					<li>{{color}} {{estimate}} ({{cars}} cars)</li>
+					{{/each}}
+				</ul>
+			{{/each}}
+		</script>
+
+		<!-- JavaScript -->
+		<script type="text/javascript">
+			function updateSystemStatus() {
+				$.getJSON('http://bart.crudworks.org/api/status?callback=?', function(data) {
+					var template = Handlebars.compile($('#status-template').html());
+					$('#systemstatus').html(template(data));				
+				});
+			};
+
+			function renderStationSelect() {
+				$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
+					var template = Handlebars.compile($('#stationlist-template').html());
+					$('#stationselect').html(template(data));
+				});
+			};
+
+			function getDepartures(stationAbbr, stationName) {
+				$.getJSON('http://bart.crudworks.org/api/departures/' + stationAbbr + '?callback=?', function(data) { 
+					var template = Handlebars.compile($('#departures-template').html());
+					$('#departures').html(template(data));
+				});
+			};
+
+			function stationSelected() {
+				var stationSelect = document.getElementById('selectedstation');
+				var stationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
+				var stationName = stationSelect.options[stationSelect.selectedIndex].text;
+				if (stationAbbr == 'NONE') {
+					$('#departures').html('<p>Select a station to see departures.</p>');
+				} else {
+					getDepartures(stationAbbr, stationName);
+					updateSystemStatus();
+				}
+			};
+
+			updateSystemStatus();
+			renderStationSelect();
+		</script>
+	</body>
+</html>
