@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BART Station Information</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.js"></script>
+  	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<style>
+		html, body, #stationmap { height: 80%; margin: 0px; padding: 10px; }
+    </style>
+</head>
+<body>
+	<!-- HTML -->
+	<h1>BART Station Information</h1>
+	<div id="systemstatus">
+	</div>
+	<hr/>
+	<div id="stationselect">
+	</div>
+	<hr/>
+	<div id="stationtitle">
+		<p>Select a station to view further details.</p>
+	</div>
+	<div id="stationdescription">
+	</div>
+	<div id="stationmap">
+	</div>
+
+	<!-- Handlebars Templates -->
+	<script id="status-template" type="text/x-handlebars-template">
+		{{updatedtime}}: {{traincount}} trains operating.
+	</script>
+
+	<script id="stationlist-template" type="text/x-handlebars-template">
+		<form action="test" id="stationselectform">
+			<select name="station" onChange="stationSelected()" id="selectedstation">
+				<option value="NONE">Select a station...</option>
+				{{#each this}}
+					<option value="{{abbr}}">{{name}}</option>
+				{{/each}}
+			</select>
+		</form>
+	</script>
+
+	<script id="stationtitle-template" type="text/x-handlebars-template">
+		<h2>Station Information: {{name}}</h2>
+
+	</script>
+
+	<script id="stationdescription-template" type="text/x-handlebars-template">
+		<p>{{address}}<br>{{city}}, {{state}} {{zipcode}}</p>
+		<p>{{description}}</p>
+	</script>
+
+	<!-- JavaScript -->
+	<script>
+		function updateSystemStatus() {
+			$.getJSON('http://bart.crudworks.org/api/status?callback=?', function(data) {
+				var template = Handlebars.compile($('#status-template').html());
+				$('#systemstatus').html(template(data));				
+			});
+		};
+
+		function renderStationSelect() {
+			$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
+				var template = Handlebars.compile($('#stationlist-template').html());
+				$('#stationselect').html(template(data));
+			});
+		};
+
+		function stationSelected() {
+			var stationSelect = document.getElementById('selectedstation');
+			var stationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
+			var stationName = stationSelect.options[stationSelect.selectedIndex].text;
+			if (stationAbbr == 'NONE') {
+				$('#stationtitle').html('<p>Select a station to view further details.</p>');
+				$('#stationmap').hide();
+				$('#stationdescription').hide();
+			} else {
+				getStationInfo(stationAbbr, stationName);
+				updateSystemStatus();
+			}
+		};
+
+		function getStationInfo(stationAbbr, stationName) {
+			$.getJSON('http://bart.crudworks.org/api/station/' + stationAbbr + '?callback=?', function(data) { 
+				var template = Handlebars.compile($('#stationtitle-template').html());
+				$('#stationtitle').html(template(data));
+				template = Handlebars.compile($('#stationdescription-template').html());
+				$('#stationdescription').html(template(data));
+
+				var mapOptions = {
+					zoom: 18,
+					center: new google.maps.LatLng(data.latitude, data.longitude),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+
+				map = new google.maps.Map(document.getElementById('stationmap'), mapOptions);
+
+				$('#stationdescription').show();
+				$('#stationmap').show();
+			});
+		};
+
+		updateSystemStatus();
+		renderStationSelect();
+	</script>
+</body>
+</html>

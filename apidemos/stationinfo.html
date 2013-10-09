@@ -29,7 +29,7 @@
 			var stationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
 			var stationName = stationSelect.options[stationSelect.selectedIndex].text;
 			if (stationAbbr == 'NONE') {
-				$('#stationtitle').html('<p>Select a station to see departures.</p>');
+				$('#stationtitle').html('<p>Select a station to view further details.</p>');
 				$('#stationmap').hide();
 				$('#stationdescription').hide();
 			} else {
@@ -48,7 +48,7 @@
 			$.getJSON('http://bart.crudworks.org/api/station/' + stationAbbr + '?callback=?', function(data) { 
 				var stationTitleHTML = '<h2>Station Information: ' + stationName + '</h2>';
 				$('#stationtitle').html(stationTitleHTML);
-				var stationDescriptionHTML = '<p>' + data.address + '<br>' + data.city + ', ' + data.state + ' ' + data.zipcode;
+				var stationDescriptionHTML = '<p>' + data.address + '<br>' + data.city + ', ' + data.state + ' ' + data.zipcode + '</p>';
 				stationDescriptionHTML = stationDescriptionHTML + '<p>' + data.description + '</p>';
 				$('#stationdescription').html(stationDescriptionHTML);
 
