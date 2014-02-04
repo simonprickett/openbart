@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
+		<meta name="keywords" content="BART,iphone,apple,android,train,transit,san francisco,bay area,rapid transit,bay area rapid transit,news,logistics,sfo,oak,oakland,fremont,millbrae,castro valley,colma,concord,berkeley,daly city,pleasanton,fruitvale,hayward,muni,walnut creek,travel"/>
+		<meta name="robots" content="index,follow"/>
+		<meta name="author" content="Simon Prickett"/>
+		<meta name="description" content="View the status of the San Francisco BART system, find train times ticket prices and news all from your smartphone.  Built with JQuery Mobile, this is a demo application by Simon Prickett."/>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+
+		<!-- TODO my css -->
+		<!-- TODO my js -->
+		<title>BART: Home</title>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header">
+				<div width="100%" class="headerimg">
+					<p>TODO IMAGE</p>
+				</div>
+				<a href="#left-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+			</div>
+			<div data-role="content">
+				<!-- TODO Advisories... -->
+				<div id="systemstatus"></div>
+				<h2>BART Departures</h2>
+				<div id="closeststation">
+					<p>TODO CLOSEST STATION</p>
+				</div>
+				<ul id="stationlist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Filter stations...">
+				</ul>
+				<p>&nbsp;</p>
+			</div>
+			<div data-role="footer">
+				<h1><a href="https://twitter.com/intent/tweet?text=@simon_prickett%20BART%20Feedback:">Tweet me feedback @simon_prickett</a></h1>
+			</div>
+			<div data-role="panel" id="left-panel">
+				<div>
+					<h3>BART</h3>
+				</div>
+				<ul data-role="listview">
+					<li><a href="#">Departures</a></li>
+					<li><a href="#">Tickets</a></li>
+					<li><a href="#">News</a></li>
+					<li><a href="#">About</a></li>
+					<li data-icon="delete"><a href="#" data-rel="close">Close Menu</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Handlebars Templates -->
+		<script id="status-template" type="text/x-handlebars-template">
+			<h5>{{updatedtime}}: {{traincount}} trains operating.</h5>
+		</script>
+
+		<script id="stationlist-template" type="text/x-handlebars-template">
+			{{#each this}}
+				<li><a href="#">{{name}}</a></li>
+			{{/each}}
+		</script>
+
+		<!-- JavaScript -->
+		<script type="text/javascript">
+			function updateSystemStatus() {
+				$.getJSON('http://bart.crudworks.org/api/status?callback=?', function(data) {
+					var template = Handlebars.compile($('#status-template').html());
+					$('#systemstatus').html(template(data));				
+				});
+			};
+
+			function renderStationList() {
+				$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
+					var template = Handlebars.compile($('#stationlist-template').html());
+					$('#stationlist').html(template(data));
+					$('#stationlist').listview('refresh');
+				});
+			};
+
+			updateSystemStatus();
+			renderStationList();
+		</script>
+	</body>
+</html>

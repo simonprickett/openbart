@@ -1,0 +1,70 @@
+
+home page:
+
+image
+status
+BART Departures
+closest station
+filter stations
+station list
+footer
+
+departures page:
+
+image
+status
+<STATION NAME>
+departures
+link to station info
+footer
+
+station info page:
+
+image
+<STATION NAME>
+map
+about this station
+foursquare
+ticket to this station link
+tickets from this station link
+home link
+footer
+
+tickets page:
+
+image
+BART Tickets
+from station drop down
+to station drop down
+get details button
+start over button
+footer
+
+ticket details page:
+
+image
+Trip Information
+from station to to station:
+ticket price
+trip left
+emissions
+from station info link
+to startion info link
+start over button
+footer
+
+news page:
+
+image
+BART News
+embedded tweets
+home link
+footer
+
+about page:
+
+image
+About
+about text
+updates
+footer
