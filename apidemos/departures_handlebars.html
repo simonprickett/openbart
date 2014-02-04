@@ -1,20 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 	<head>
-		<title>BART Train Departures</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
+		<meta name="keywords" content="BART,iphone,apple,android,train,transit,san francisco,bay area,rapid transit,bay area rapid transit,news,logistics,sfo,oak,oakland,fremont,millbrae,castro valley,colma,concord,berkeley,daly city,pleasanton,fruitvale,hayward,muni,walnut creek,travel"/>
+		<meta name="robots" content="index,follow"/>
+		<meta name="author" content="Simon Prickett"/>
+		<meta name="description" content="View the status of the San Francisco BART system, find train times ticket prices and news all from your smartphone.  Built with JQuery Mobile, this is a demo application by Simon Prickett."/>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+
+		<!-- TODO my css -->
+		<!-- TODO my js -->
+		<title>BART: Departures</title>
 	</head>
 	<body>
-		<!-- HTML -->
-		<h1>BART Train Departures</h1>
-		<div id="systemstatus">
-		</div>
-		<hr>
-		<div id="stationselect">
-		</div>
-		<hr>
-		<div id="departures">
-			<p>Select a station to see departures.</p>
+		<div data-role="page">
+			<div data-role="header">
+				<div width="100%" class="headerimg">
+					<p>TODO IMAGE</p>
+				</div>
+				<a href="#left-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+			</div>
+			<div data-role="content">
+				<!-- TODO Advisories... -->
+				<div id="systemstatus"></div>	
+				<div id="departures"></div>
+				<a href="#" data-role="button" data-icon="info" data-theme="b">STATIONNAME Info</a>
+				<a href="index.html" data-role="button" data-icon="home" data-theme="b">Home</a>
+			</div>
+			<div data-role="footer">
+				<h1><a href="https://twitter.com/intent/tweet?text=@simon_prickett%20BART%20Feedback:">Tweet me feedback @simon_prickett</a></h1>
+			</div>
+			<div data-role="panel" id="left-panel">
+				<div>
+					<h3>BART</h3>
+				</div>
+				<ul data-role="listview">
+					<li><a href="#">Departures</a></li>
+					<li><a href="#">Tickets</a></li>
+					<li><a href="#">News</a></li>
+					<li><a href="#">About</a></li>
+					<li data-icon="delete"><a href="#" data-rel="close">Close Menu</a></li>
+				</ul>
+			</div>
 		</div>
 
 		<!-- Handlebars Templates -->
@@ -22,27 +52,16 @@
 			{{updatedtime}}: {{traincount}} trains operating.
 		</script>
 
-		<script id="stationlist-template" type="text/x-handlebars-template">
-			<form action="test" id="stationselectform">
-				<select name="station" onChange="stationSelected()" id="selectedstation">
-					<option value="NONE">Select a station...</option>
-					{{#each this}}
-						<option value="{{abbr}}">{{name}}</option>
-					{{/each}}
-				</select>
-			</form>
-		</script>
-
 		<script id="departures-template" type="text/x-handlebars-template">
-			<h2>Departures from STATIONNAME</h2>
+			<h2>STATIONNAME</h2>
 			{{#each this}}
-				<h4>{{destination}}</h4>
-				<p>Platform {{departures.[0].platform}}</p>
-				<ul>
-					{{#each departures}}
-					<li>{{color}} {{estimate}} ({{cars}} cars)</li>
-					{{/each}}
-				</ul>
+				<!-- TODO set unique IDs per destination -->
+				<ol id="departures{{@key}}" data-role="listview" data-inset="true">
+				<li data-role="list-divider"><a href="test" class="ui-link">{{destination}} (Platform {{departures.[0].platform}})</a></li>
+				{{#each departures}}
+				<li>{{color}} {{estimate}} {{cars}} cars</li>
+				{{/each}}
+				</ol>
 			{{/each}}
 		</script>
 
@@ -55,34 +74,19 @@
 				});
 			};
 
-			function renderStationSelect() {
-				$.getJSON("http://bart.crudworks.org/api/stations?callback=?", function(data) {
-					var template = Handlebars.compile($('#stationlist-template').html());
-					$('#stationselect').html(template(data));
-				});
-			};
-
 			function getDepartures(stationAbbr, stationName) {
 				$.getJSON('http://bart.crudworks.org/api/departures/' + stationAbbr + '?callback=?', function(data) { 
 					var template = Handlebars.compile($('#departures-template').html());
 					$('#departures').html(template(data));
+					// TODO: links not right formatting in list-divider?????
+					for (var key in data) {
+						$('#departures' + key).listview();
+					}
 				});
 			};
 
-			function stationSelected() {
-				var stationSelect = document.getElementById('selectedstation');
-				var stationAbbr = stationSelect.options[stationSelect.selectedIndex].value;
-				var stationName = stationSelect.options[stationSelect.selectedIndex].text;
-				if (stationAbbr == 'NONE') {
-					$('#departures').html('<p>Select a station to see departures.</p>');
-				} else {
-					getDepartures(stationAbbr, stationName);
-					updateSystemStatus();
-				}
-			};
-
 			updateSystemStatus();
-			renderStationSelect();
+			getDepartures('POWL', '');
 		</script>
 	</body>
 </html>
