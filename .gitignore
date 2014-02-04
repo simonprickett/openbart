@@ -45,3 +45,5 @@ target/classes/org/crudworks/bart/jobs/AdvisoriesJob.class
 target/classes/org/crudworks/bart/jobs/AdvisoriesJob.class
 
 target/classes/org/crudworks/bart/controllers/BartController.class
+
+target/stacktrace.log
